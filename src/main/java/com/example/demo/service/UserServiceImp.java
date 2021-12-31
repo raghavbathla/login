@@ -30,8 +30,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public List<User> findByPassword(String email, String password) {
-        return userRepository.findByPassword(email, password);
+    public Long findByPassword(String email,String password) {
+        return userRepository.findByPassword(email,password);
     }
 
 }

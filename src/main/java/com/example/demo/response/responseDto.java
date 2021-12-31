@@ -1,17 +1,18 @@
 package com.example.demo.response;
 
+
+import com.example.demo.dto.UserRegistrationDto;
+import com.example.demo.model.User;
+import lombok.Data;
+
+@Data
 public class responseDto {
-    Long id;
 
-    public responseDto(Long id) {
-        this.id = id;
-    }
+    private String message;
+    private Object data;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public responseDto(String message, Object data) {
+        this.message = message;
+        this.data = data;
     }
 }

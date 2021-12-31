@@ -7,6 +7,8 @@ import com.example.demo.model.User;
 import com.example.demo.response.responseDto;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,25 +22,24 @@ public class UserRegsitrationController {
     @Autowired
 private UserService userService;
 
-    public UserRegsitrationController(UserService userService) {
-        this.userService = userService;
+
+
+    @PostMapping("/new")
+    public ResponseEntity<responseDto> addRecord(@RequestBody UserRegistrationDto userRegistrationDto) //throws CustomException
+    {
+        String status=userService.save(userRegistrationDto);
+        responseDto dto = new responseDto("Data added successfully:",status);
+        return (new ResponseEntity(dto, HttpStatus.CREATED));
     }
 
-    @GetMapping("/new")
-    public String RegisterAccount(/*@ModelAttribute("user")*/ @RequestBody UserRegistrationDto userRegistrationDto){
-        return   userService.save(userRegistrationDto);
 
+
+    @PostMapping("/logindta")
+    public ResponseEntity<responseDto> login(@RequestBody LoginDto loginDto) {
+        responseDto dto = new responseDto("Data added successfully:",userService.findByPassword(loginDto.getEmail(),loginDto.getPassword()));
+        return (new ResponseEntity(dto, HttpStatus.CREATED));
 
     }
 
 
-    @GetMapping("/logindta")
-    public List<User> login(@RequestBody LoginDto loginDto) {
-     return userService.findByPassword(loginDto.getEmail(), loginDto.getPassword());
-    }
-
-    @GetMapping("/check")
-public String check(){
-        return "Success";
-}
 }

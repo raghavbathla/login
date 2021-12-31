@@ -12,5 +12,5 @@ import java.util.List;
 
 public interface UserService {
     String save(UserRegistrationDto registrationDto);
-    List<User> findByPassword(String email, String password);
+    Long findByPassword(String email,String password);
 }
